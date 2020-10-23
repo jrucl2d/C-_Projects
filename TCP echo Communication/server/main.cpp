@@ -6,7 +6,7 @@ using namespace std;
 
 // 에러 핸들링
 void ShowErrorMessage(string message){
-    cout << "[오류 발생]: " << message << '\n';
+    cout << "[ERROR]: " << message << '\n';
     system("pause");
     exit(1);
 }
@@ -33,26 +33,26 @@ int main() {
     serverAddress.sin_port = htons(serverPort); // 2바이트 정수 네트워크 바이트 형식으로, 포트 설정
     if(bind(serverSocket, (SOCKADDR*)&serverAddress, sizeof(serverAddress)) == SOCKET_ERROR)
         ShowErrorMessage("bind()");
-    cout << "[현재 상태] bind()\n";
+    cout << "[NOW] bind()\n";
 
     if(listen(serverSocket, 5) == SOCKET_ERROR) // 동시에 5개 클라이언트 접속 가능
         ShowErrorMessage("listen()");
-    cout << "[현재 상태] listen()\n";
+    cout << "[NOW] listen()\n";
 
     int sizeClientAddress = sizeof(clientAddress);
     clientSocket = accept(serverSocket, (SOCKADDR*)&clientAddress, &sizeClientAddress);
-    cout << "[현재 상태] accept()\n";
+    cout << "[NOW] accept()\n";
 
     if(clientSocket == INVALID_SOCKET)
         ShowErrorMessage("accept()");
     while(1){
         int length = recv(clientSocket, received, sizeof(received), 0);
-        received[length] = NULL; // 마지막 문자를 잘라냄
-        cout << "[클라이언트 메시지]: " << received << '\n';
-        cout << "[메시지 전송]: " << received << '\n';
+        received[length] = '\0'; // 마지막 문자를 잘라냄
+        cout << "[CLIENT MESSAGE]: " << received << '\n';
+        cout << "[MESSAGE SEND]: " << received << '\n';
         if(strcmp(received, "[exit]") == 0){
             send(clientSocket, received, sizeof(received) - 1, 0); // 마지막 엔터를 제거하기 위해서 -1을 해줌
-            cout << "[서버 종로]\n";
+            cout << "[SERVER EXIT]\n";
             break;
         }
         send(clientSocket, received, sizeof(received) - 1, 0);
