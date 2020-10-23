@@ -1,0 +1,3 @@
+C:/Users/ysk78/src/C/cppProject/TCP echo Communication/server/cmake-build-debug/CMakeFiles/server.dir
+C:/Users/ysk78/src/C/cppProject/TCP echo Communication/server/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ysk78/src/C/cppProject/TCP echo Communication/server/cmake-build-debug/CMakeFiles/rebuild_cache.dir
