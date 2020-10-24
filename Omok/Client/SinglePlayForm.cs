@@ -12,9 +12,57 @@ namespace Client
 {
 	public partial class SinglePlayForm : Form
 	{
+		private const int rectSize = 33; // 오목판의 셀 크기
+		private const int edgeCount = 15; // 오목판의 선 개수
+
+		private enum Horse { none = 0, BLACK, WHITE };
+		private Horse[,] board = new Horse[edgeCount, edgeCount];
+		private Horse nowPlayer = Horse.BLACK;
+
 		public SinglePlayForm()
 		{
 			InitializeComponent();
+		}
+
+		private void boardPicture_MouseDown(object sender, MouseEventArgs e)
+		{
+			Graphics g = this.boardPicture.CreateGraphics();
+			int x = e.X / rectSize; // 사용자가 클릭한 셀 위치가 몇 번째 셀인지 파악
+			int y = e.Y / rectSize; // 셀은 0~14까지 이므로 이를 벗어나면 테두리를 벗어난 것
+			if(x < 0 || y < 0 || x >= edgeCount || y >= edgeCount)
+			{
+				MessageBox.Show("테두리를 벗어날 수 없습니다.");
+				return;
+			}
+			MessageBox.Show(x + ", " + y);
+			if(nowPlayer == Horse.BLACK)
+			{
+				SolidBrush brush = new SolidBrush(Color.Black);
+				g.FillEllipse(brush, x * rectSize, y * rectSize, rectSize, rectSize);
+			} else
+			{
+				SolidBrush brush = new SolidBrush(Color.White);
+				g.FillEllipse(brush, x * rectSize, y * rectSize, rectSize, rectSize);
+			}
+		}
+
+		private void boardPicture_Paint(object sender, PaintEventArgs e)
+		{
+			Graphics gp = e.Graphics;
+			Color lineColor = Color.Black; // 오목판의 선 색깔
+			Pen p = new Pen(lineColor, 2); // 펜 굵기
+			// 오목판의 선 그리기
+			gp.DrawLine(p, rectSize / 2, rectSize / 2, rectSize / 2, rectSize * edgeCount - rectSize / 2); // 좌측
+			gp.DrawLine(p, rectSize / 2, rectSize / 2, rectSize * edgeCount - rectSize / 2, rectSize / 2); // 상측
+			gp.DrawLine(p, rectSize / 2, rectSize * edgeCount - rectSize / 2, rectSize * edgeCount - rectSize / 2, rectSize * edgeCount - rectSize / 2); // 하측
+			gp.DrawLine(p, rectSize * edgeCount - rectSize / 2, rectSize / 2, rectSize * edgeCount - rectSize / 2, rectSize * edgeCount - rectSize / 2); // 우측
+			p = new Pen(lineColor, 1);
+			// 대각선 방향으로 이동하면서 십자가 모양의 선 그리기(오목판 내부)
+			for(int i= rectSize + rectSize / 2; i < rectSize * edgeCount - rectSize / 2; i += rectSize)
+			{
+				gp.DrawLine(p, rectSize / 2, i, rectSize * edgeCount - rectSize / 2, i);
+				gp.DrawLine(p, i, rectSize / 2, i, rectSize * edgeCount - rectSize / 2);
+			}
 		}
 	}
 }
