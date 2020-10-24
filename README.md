@@ -8,6 +8,10 @@ C++ projects(Socket Communication, Games)
 
 ## 2. Omok Game
 
+<hr/>
+
+- Single Play
+
 ### - Start menu
 
 <img src="./Omok/1.PNG" width="400px" >
@@ -23,3 +27,22 @@ C++ projects(Socket Communication, Games)
 ### - Cannot click board when playing is done
 
 <img src="./Omok/4.PNG" width="400px" >
+<hr/>
+
+- Multi Play
+
+### - Server Started
+
+<img src="./Omok/m1.PNG" width="400px" >
+
+### - Two clients connected to same room
+
+<img src="./Omok/m2.PNG" width="400px" >
+
+### - Multiplay started
+
+<img src="./Omok/m3.PNG" width="400px" >
+
+### - Game over
+
+<img src="./Omok/m4.PNG" width="400px" >
