@@ -41,5 +41,13 @@ namespace Client
 			multiPlayForm.FormClosed += new FormClosedEventHandler(childForm_Closed); 
 			multiPlayForm.Show();
 		}
+
+		private void AIPlayButton_Click(object sender, EventArgs e)
+		{
+			Hide();
+			AIPlayForm aiPlayForm = new AIPlayForm();
+			aiPlayForm.FormClosed += new FormClosedEventHandler(childForm_Closed);
+			aiPlayForm.Show();
+		}
 	}
 }
